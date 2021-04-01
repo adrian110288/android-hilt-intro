@@ -1,0 +1,42 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply from: '../versions.gradle'
+
+android {
+  compileSdkVersion 29
+  buildToolsVersion "29.0.2"
+  defaultConfig {
+    applicationId "com.raywenderlich.rwnews"
+    minSdkVersion 21
+    targetSdkVersion 29
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "androidx.appcompat:appcompat:$app_compat_version"
+  implementation "com.android.support:recyclerview-v7:$recycler_view_version"
+  implementation "androidx.constraintlayout:constraintlayout:$constraints_layout_version"
+
+  implementation project(path: ':common')
+
+  implementation "com.google.dagger:hilt-android:$hilt_android_version"
+  kapt "com.google.dagger:hilt-android-compiler:$hilt_android_version"
+
+  testImplementation "junit:junit:$junit_version"
+  androidTestImplementation "androidx.test.ext:junit:$andoidx_test_version"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+}
